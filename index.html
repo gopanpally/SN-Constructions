@@ -3,28 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SN CONSTRUCTIONS</title>
+    <title>SN CONSTRUCTIONS - Interactive</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
     <style>
-        /* To remove unwanted horizontal scroll on mobile */
         body, html {
             overflow-x: hidden;
         }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .project-filter {
+            transition: all 0.3s ease;
+        }
+        
+        .project-filter.active {
+            background-color: #ef4444;
+            color: white;
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .counter {
+            transition: all 0.3s ease;
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        .loading {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .loading.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
-<body class="font-sans bg-gray-100">
+<body class="font-sans bg-gray-100 smooth-scroll">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-red-500 mx-auto mb-4"></div>
+            <h2 class="text-2xl font-bold text-gray-800">SN CONSTRUCTIONS</h2>
+            <p class="text-gray-600">Loading...</p>
+        </div>
+    </div>
 
     <!-- Navbar -->
-    <header class="bg-white shadow-md fixed w-full z-50">
+    <header class="bg-white shadow-md fixed w-full z-40 transition-all duration-300" id="navbar">
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
-            <a href="#" class="text-2xl font-bold text-gray-800">SN CONSTRUCTIONS</a>
+            <a href="#" class="text-2xl font-bold text-gray-800 hover:text-red-500 transition-colors">SN CONSTRUCTIONS</a>
             <nav>
                 <ul class="hidden md:flex space-x-6">
-                    <li><a href="#home" class="text-gray-600 hover:text-red-500">Home</a></li>
-                    <li><a href="#about" class="text-gray-600 hover:text-red-500">About Us</a></li>
-                    <li><a href="#portfolio" class="text-gray-600 hover:text-red-500">Portfolio</a></li>
-                    <li><a href="#services" class="text-gray-600 hover:text-red-500">Services</a></li>
-                    <li><a href="#contact" class="text-gray-600 hover:text-red-500">Contact</a></li>
+                    <li><a href="#home" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Home</a></li>
+                    <li><a href="#about" class="text-gray-600 hover:text-red-500 transition-colors nav-link">About Us</a></li>
+                    <li><a href="#portfolio" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Portfolio</a></li>
+                    <li><a href="#services" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Services</a></li>
+                    <li><a href="#contact" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Contact</a></li>
                 </ul>
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
@@ -39,11 +124,11 @@
         <!-- Mobile nav menu -->
         <div id="nav-menu" class="hidden bg-white md:hidden">
             <ul class="flex flex-col items-center py-4 space-y-4">
-                <li><a href="#home" class="text-gray-600 hover:text-red-500">Home</a></li>
-                <li><a href="#about" class="text-gray-600 hover:text-red-500">About Us</a></li>
-                <li><a href="#portfolio" class="text-gray-600 hover:text-red-500">Portfolio</a></li>
-                <li><a href="#services" class="text-gray-600 hover:text-red-500">Services</a></li>
-                <li><a href="#contact" class="text-gray-600 hover:text-red-500">Contact</a></li>
+                <li><a href="#home" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Home</a></li>
+                <li><a href="#about" class="text-gray-600 hover:text-red-500 transition-colors nav-link">About Us</a></li>
+                <li><a href="#portfolio" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Portfolio</a></li>
+                <li><a href="#services" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Services</a></li>
+                <li><a href="#contact" class="text-gray-600 hover:text-red-500 transition-colors nav-link">Contact</a></li>
             </ul>
         </div>
     </header>
@@ -52,75 +137,127 @@
     <section id="home" class="bg-cover bg-center h-screen relative" style="background-image: url('banner-image.jpg'); margin-top: 64px;">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="container mx-auto h-full flex flex-col items-center justify-center text-white relative z-10 px-4">
-            <h1 class="text-5xl font-bold mb-4 text-center">Crafting Excellence in Every Structure</h1>
-            <p class="text-lg mb-8 text-center max-w-2xl" style="font-size: 1.2rem">At SN CONSTRUCTIONS, we specialize in custom-built homes, expert remodeling, and commercial construction. Bringing your vision to life with precision and passion.</p>
+            <h1 class="text-5xl font-bold mb-4 text-center loading" data-aos="fade-up">Crafting Excellence in Every Structure</h1>
+            <p class="text-lg mb-8 text-center max-w-2xl loading" style="font-size: 1.2rem" data-aos="fade-up" data-aos-delay="200">At SN CONSTRUCTIONS, we specialize in custom-built homes, expert remodeling, and commercial construction. Bringing your vision to life with precision and passion.</p>
             
             <!-- Contact Number -->
-            <div class="text-orange-500 text-2xl font-bold flex items-center">
-                <span class="material-icons mr-2">call</span> <!-- Add icon if using a library like Material Icons -->
-                +91 9398589479
+            <div class="text-orange-500 text-2xl font-bold flex items-center loading" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-phone mr-2"></i>
+                <a href="tel:+919398589479" class="hover:text-orange-400 transition-colors">+91 9398589479</a>
             </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 mt-8 loading" data-aos="fade-up" data-aos-delay="600">
+                <button onclick="openModal('contact-modal')" class="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    Get Free Quote
+                </button>
+                <button onclick="scrollToSection('portfolio')" class="border-2 border-white text-white hover:bg-white hover:text-gray-800 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    View Our Work
+                </button>
+                <button onclick="sendWhatsApp()" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                </button>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-white text-2xl"></i>
         </div>
     </section>
 
-    <!-- Add the remaining sections as in your original code -->
-     <!-- About Section -->
+    <!-- About Section -->
     <section id="about" class="py-16 bg-white">
         <div class="container mx-auto flex flex-col md:flex-row items-center px-6">
-            <img src="SN-Constructions.jpg" alt="MGK Construction Co." class="w-full md:w-1/2 h-auto mb-8 md:mb-0">
-            <div class="md:ml-10">
+            <img src="SN-Constructions.jpg" alt="SN Construction Co." class="w-full md:w-1/2 h-auto mb-8 md:mb-0 rounded-lg shadow-lg" data-aos="fade-right">
+            <div class="md:ml-10" data-aos="fade-left">
                 <h2 class="text-3xl font-bold mb-4 text-gray-800">About Us</h2>
-                <p class="text-gray-700 mb-8" style="font-size: 1.2rem">SN CONSTRUCTIONS is committed to remodelling and serving with quality and value. We'll come to you, listen to your needs and wants, and then come back to you with a logical, feasible plan that works for you. Our first-time customers continually become our long term customers time and time again, choosing us for all their remodelling needs. Call us today, and see what our commitment to quality is all about! We may not be related, but you'll feel like we're family.
-                </p>
-                <a href="#mission" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold">Read More</a>
+                <p class="text-gray-700 mb-8" style="font-size: 1.2rem">SN CONSTRUCTIONS is committed to remodelling and serving with quality and value. We'll come to you, listen to your needs and wants, and then come back to you with a logical, feasible plan that works for you. Our first-time customers continually become our long term customers time and time again, choosing us for all their remodelling needs. Call us today, and see what our commitment to quality is all about! We may not be related, but you'll feel like we're family.</p>
+                <button onclick="openModal('about-modal')" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+                    Read More
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-20 bg-gray-100 relative" style="background-image: url('epoxy-flooring.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <section id="portfolio" class="py-20 bg-gray-100 relative" style="background-image: url('Epoxy-Flooring.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
         <!-- Full-width Black Overlay -->
         <div class="absolute inset-0 bg-black opacity-75"></div>
         
         <div class="relative container mx-auto text-center px-6 py-12">
-            <h2 class="text-4xl font-bold mb-10 text-white">Our Portfolio</h2>
-            <p class="text-gray-300 max-w-2xl mx-auto mb-12" style="font-size: 1.2rem">Take a look at some of the projects we've proudly delivered, each crafted with dedication to quality and client satisfaction.</p>
+            <h2 class="text-4xl font-bold mb-10 text-white" data-aos="fade-up">Our Portfolio</h2>
+            <p class="text-gray-300 max-w-2xl mx-auto mb-12" style="font-size: 1.2rem" data-aos="fade-up" data-aos-delay="200">Take a look at some of the projects we've proudly delivered, each crafted with dedication to quality and client satisfaction.</p>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8">
+            <!-- Project Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="400">
+                <button class="project-filter active px-6 py-2 rounded-full border-2 border-white text-white hover:bg-white hover:text-gray-800 transition-all duration-300" data-filter="all">
+                    All Projects
+                </button>
+                <button class="project-filter px-6 py-2 rounded-full border-2 border-white text-white hover:bg-white hover:text-gray-800 transition-all duration-300" data-filter="commercial">
+                    Commercial
+                </button>
+                <button class="project-filter px-6 py-2 rounded-full border-2 border-white text-white hover:bg-white hover:text-gray-800 transition-all duration-300" data-filter="residential">
+                    Residential
+                </button>
+                <button class="project-filter px-6 py-2 rounded-full border-2 border-white text-white hover:bg-white hover:text-gray-800 transition-all duration-300" data-filter="industrial">
+                    Industrial
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8" id="portfolio-grid">
                 <!-- Project 1 -->
-                <div class="relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300">
+                <div class="project-item commercial relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="600" onclick="openProjectModal('swordlily')">
                     <h3 class="text-2xl font-bold mb-4">Swordlily Cultural and Sports Pvt Ltd.</h3>
                     <p>A comprehensive facility designed for cultural and sports activities, built with precision to meet client expectations and industry standards.</p>
+                    <div class="mt-4">
+                        <span class="bg-red-500 px-3 py-1 rounded-full text-sm">Commercial</span>
+                    </div>
                 </div>
                 
                 <!-- Project 2 -->
-                <div class="relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300">
+                <div class="project-item industrial relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="700" onclick="openProjectModal('robomatic')">
                     <h3 class="text-2xl font-bold mb-4">Robomatic Precorn Pvt Ltd.</h3>
                     <p>Innovative construction solutions for industrial needs, focusing on durability, safety, and high performance in automation facilities.</p>
+                    <div class="mt-4">
+                        <span class="bg-blue-500 px-3 py-1 rounded-full text-sm">Industrial</span>
+                    </div>
                 </div>
                 
                 <!-- Project 3 -->
-                <div class="relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300">
+                <div class="project-item commercial relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="800" onclick="openProjectModal('uniworks')">
                     <h3 class="text-2xl font-bold mb-4">Uniworks Designs</h3>
                     <p>Modern architectural designs with a focus on aesthetics and functionality, bringing the client's vision to life in every detail.</p>
+                    <div class="mt-4">
+                        <span class="bg-red-500 px-3 py-1 rounded-full text-sm">Commercial</span>
+                    </div>
                 </div>
                 
                 <!-- Project 4 -->
-                <div class="relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300">
+                <div class="project-item industrial relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="900" onclick="openProjectModal('ns-epoxy')">
                     <h3 class="text-2xl font-bold mb-4">NS Epoxy and Fabrications</h3>
                     <p>Specialized epoxy and fabrication work, delivering superior quality and precision for lasting results in industrial and commercial projects.</p>
+                    <div class="mt-4">
+                        <span class="bg-blue-500 px-3 py-1 rounded-full text-sm">Industrial</span>
+                    </div>
                 </div>
                 
                 <!-- Project 5 -->
-                <div class="relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300">
+                <div class="project-item residential relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="1000" onclick="openProjectModal('priya-living')">
                     <h3 class="text-2xl font-bold mb-4">Priya Living</h3>
                     <p>Residential construction project focusing on luxury living with elegant design elements, functionality, and comfort in every space.</p>
+                    <div class="mt-4">
+                        <span class="bg-green-500 px-3 py-1 rounded-full text-sm">Residential</span>
+                    </div>
                 </div>
                 
-                <!-- New Project 6 -->
-                <div class="relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300">
+                <!-- Project 6 -->
+                <div class="project-item commercial relative bg-black text-white rounded-lg shadow-lg p-8 transform hover:scale-105 transition duration-300 cursor-pointer" data-aos="fade-up" data-aos-delay="1100" onclick="openProjectModal('gaudium')">
                     <h3 class="text-2xl font-bold mb-4">Gaudium International School</h3>
                     <p>An educational facility designed to provide a supportive and inspiring environment, focusing on innovation and student growth.</p>
+                    <div class="mt-4">
+                        <span class="bg-red-500 px-3 py-1 rounded-full text-sm">Commercial</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -129,9 +266,9 @@
     <!-- Mission Section -->
     <section id="mission" class="py-20 bg-gray-100">
         <div class="container mx-auto text-center px-6">
-            <h2 class="text-5xl font-bold mb-4 text-gray-800">Our Mission</h2>
-            <div class="w-24 h-1 bg-red-500 mx-auto mb-6"></div> <!-- Red underline -->
-            <p class="text-lg text-gray-700 max-w-3xl mx-auto" style="font-size: 1.2rem">At SN Constructions, we are dedicated to delivering projects safely and reliably, ensuring that every detail is crafted with care. Our mission is to be a trusted partner in the construction industry, providing high-quality results that stand the test of time.</p>
+            <h2 class="text-5xl font-bold mb-4 text-gray-800" data-aos="fade-up">Our Mission</h2>
+            <div class="w-24 h-1 bg-red-500 mx-auto mb-6" data-aos="fade-up" data-aos-delay="200"></div>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto" style="font-size: 1.2rem" data-aos="fade-up" data-aos-delay="400">At SN Constructions, we are dedicated to delivering projects safely and reliably, ensuring that every detail is crafted with care. Our mission is to be a trusted partner in the construction industry, providing high-quality results that stand the test of time.</p>
         </div>
     </section>
 
@@ -141,120 +278,188 @@
         <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-70"></div>
 
         <div class="relative container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-12">What Makes Us Special</h2>
+            <h2 class="text-4xl font-bold mb-12" data-aos="fade-up">What Makes Us Special</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <!-- Feature 1 -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-red-500 p-6 rounded-full mb-6 flex items-center justify-center">
-                        <img src="1.jpg" alt="Building Icon" class="w-12 h-12"> <!-- Update path to icon file -->
+                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-red-500 p-6 rounded-full mb-6 flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer" onclick="openModal('purpose-modal')">
+                        <img src="1.jpg" alt="Building Icon" class="w-12 h-12">
                     </div>
                     <h3 class="text-xl font-bold mb-2">Our Purpose</h3>
                     <p class="text-center text-gray-200 max-w-xs" style="font-size: 1.150rem">To build high-performing, sustainable homes that are easy to maintain and provide lasting value...</p>
                 </div>
                 
                 <!-- Feature 2 -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-red-500 p-6 rounded-full mb-6 flex items-center justify-center">
-                        <img src="2.jpg" alt="Compass Icon" class="w-12 h-12"> <!-- Update path to icon file -->
+                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-red-500 p-6 rounded-full mb-6 flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer" onclick="openModal('passion-modal')">
+                        <img src="2.jpg" alt="Compass Icon" class="w-12 h-12">
                     </div>
                     <h3 class="text-xl font-bold mb-2">Our Passion</h3>
                     <p class="text-center text-gray-200 max-w-xs" style="font-size: 1.150rem">Honest feedback at the end of a project from happy homeowners who say we did a great job...</p>
                 </div>
                 
                 <!-- Feature 3 -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-red-500 p-6 rounded-full mb-6 flex items-center justify-center">
-                        <img src="3.jpg" alt="Handshake Icon" class="w-12 h-12"> <!-- Update path to icon file -->
+                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="600">
+                    <div class="bg-red-500 p-6 rounded-full mb-6 flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer" onclick="openModal('pride-modal')">
+                        <img src="3.jpg" alt="Handshake Icon" class="w-12 h-12">
                     </div>
                     <h3 class="text-xl font-bold mb-2">Our Pride</h3>
-                    <p class="text-center text-gray-200 max-w-xs" style="font-size: 1.150rem">The lasting relationships we’ve developed over the years with our homeowners...</p>
+                    <p class="text-center text-gray-200 max-w-xs" style="font-size: 1.150rem">The lasting relationships we've developed over the years with our homeowners...</p>
                 </div>
             </div>
         </div>
     </section>
 
-
     <!-- Services Section -->
     <section id="services" class="py-16 bg-white">
         <div class="container mx-auto text-center px-6">
-            <h2 class="text-3xl font-bold mb-8 text-gray-800">Our Services</h2>
-            <p class="text-gray-700 max-w-2xl mx-auto mb-8" style="font-size: 1.2rem">We are committed to upholding the highest standard of quality and efficiency...</p>
-            <a href="#services" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold">More Services</a>
+            <h2 class="text-3xl font-bold mb-8 text-gray-800" data-aos="fade-up">Our Services</h2>
+            <p class="text-gray-700 max-w-2xl mx-auto mb-8" style="font-size: 1.2rem" data-aos="fade-up" data-aos-delay="200">We are committed to upholding the highest standard of quality and efficiency...</p>
+            <button onclick="openModal('services-modal')" class="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105" data-aos="fade-up" data-aos-delay="400">More Services</button>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
-                <!-- Repeat for each service -->
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <!-- Service Cards -->
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="600" onclick="openServiceModal('densification')">
                     <div class="p-4">
-                        <img src="Densification.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Densification.jpg" alt="Densification" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Densification</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="700" onclick="openServiceModal('brick-work')">
                     <div class="p-4">
-                        <img src="Brick-Work.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Brick-Work.jpg" alt="Brick Work" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Brick Work</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="800" onclick="openServiceModal('concrete-flooring')">
                     <div class="p-4">
-                        <img src="Concrete-Flooring.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Concrete-Flooring.jpg" alt="Concrete Flooring" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Concrete Flooring</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="900" onclick="openServiceModal('flooring-tiles')">
                     <div class="p-4">
-                        <img src="Flooring-Tiles.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Flooring-Tiles.jpg" alt="Flooring Tiles" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Flooring Tiles</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1000" onclick="openServiceModal('epoxy-flooring')">
                     <div class="p-4">
-                        <img src="Epoxy-Flooring.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Epoxy-Flooring.jpg" alt="Epoxy Flooring" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Epoxy Flooring</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1100" onclick="openServiceModal('granite-flooring')">
                     <div class="p-4">
-                        <img src="Granite-Flooring.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Granite-Flooring.jpg" alt="Granite Flooring" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Granite Flooring</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1200" onclick="openServiceModal('painting-work')">
                     <div class="p-4">
-                        <img src="Painting-Work.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Painting-Work.jpg" alt="Painting Work" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Painting Works</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1300" onclick="openServiceModal('false-ceiling')">
                     <div class="p-4">
-                        <img src="False-Ceiling.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="False-Ceiling.jpg" alt="False Ceiling" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">False Ceiling</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1400" onclick="openServiceModal('grid-ceiling')">
                     <div class="p-4">
-                        <img src="Grid-Ceiling.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Grid-Ceiling.jpg" alt="Grid Ceiling" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Grid Ceiling</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1500" onclick="openServiceModal('gypsum-partitions')">
                     <div class="p-4">
-                        <img src="Gypsum-Partitions.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Gypsum-Partitions.jpg" alt="Gypsum Partitions" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Gypsum Partitions</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1600" onclick="openServiceModal('wood-partitions')">
                     <div class="p-4">
-                        <img src="Wood-Partitions.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Wood-Partitions.jpg" alt="Wood Partitions" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Wood Partitions</h3>
                     </div>
                 </div>
-                <div class="max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="service-card max-w-xs mx-auto bg-white rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="1700" onclick="openServiceModal('vinyl-flooring')">
                     <div class="p-4">
-                        <img src="Vinyl-Flooring.jpg" alt="Painting Works" class="rounded-lg w-full h-48 object-cover mb-4">
+                        <img src="Vinyl-Flooring.jpg" alt="Vinyl Flooring" class="rounded-lg w-full h-48 object-cover mb-4">
                         <h3 class="text-xl font-bold text-center">Vinyl Flooring</h3>
                     </div>
                 </div>
-                <!-- More services -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-gray-100">
+        <div class="container mx-auto text-center px-6">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800" data-aos="fade-up">What Our Clients Say</h2>
+            <div class="max-w-4xl mx-auto">
+                <div id="testimonial-carousel" class="relative">
+                    <div class="testimonial-slide active">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex items-center justify-center mb-4">
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4 italic">"SN Constructions delivered our project on time and exceeded our expectations. Their attention to detail and quality workmanship is outstanding."</p>
+                            <h4 class="font-bold text-gray-800">- Swordlily Cultural and Sports Pvt Ltd.</h4>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide hidden">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex items-center justify-center mb-4">
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4 italic">"Professional team with excellent communication throughout the project. Highly recommended for any construction needs."</p>
+                            <h4 class="font-bold text-gray-800">- Robomatic Precorn Pvt Ltd.</h4>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide hidden">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex items-center justify-center mb-4">
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4 italic">"The team at SN Constructions transformed our vision into reality. Their expertise and dedication are unmatched."</p>
+                            <h4 class="font-bold text-gray-800">- Uniworks Designs</h4>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide hidden">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <div class="flex items-center justify-center mb-4">
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                <i class="fas fa-star text-yellow-400 text-xl"></i>
+                            </div>
+                            <p class="text-gray-700 mb-4 italic">"I hired SN Constructions for my home renovation project and I couldn't be happier! Mr. G. Sai Krishna Reddy and his team were professional, punctual, and delivered exceptional quality work. They completed my epoxy flooring and painting work within the promised timeline. The attention to detail and finish quality exceeded my expectations. Highly recommend for any construction work!"</p>
+                            <h4 class="font-bold text-gray-800">- Priya Living, Residential Client</h4>
+                            <p class="text-sm text-gray-500 mt-2">Project: Home Renovation (Epoxy Flooring & Painting)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-6 space-x-2">
+                    <button class="testimonial-dot w-3 h-3 bg-gray-400 rounded-full active" onclick="showTestimonial(0)"></button>
+                    <button class="testimonial-dot w-3 h-3 bg-gray-400 rounded-full" onclick="showTestimonial(1)"></button>
+                    <button class="testimonial-dot w-3 h-3 bg-gray-400 rounded-full" onclick="showTestimonial(2)"></button>
+                    <button class="testimonial-dot w-3 h-3 bg-gray-400 rounded-full" onclick="showTestimonial(3)"></button>
+                </div>
             </div>
         </div>
     </section>
@@ -262,36 +467,36 @@
     <!-- Why Choose Us -->
     <section id="why-choose" class="py-16 pb-0 bg-gray-100">
         <div class="container mx-auto text-center px-6">
-            <h2 class="text-3xl font-bold mb-8 text-gray-800">Why Choose Us</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto mb-12" style="font-size: 1.2rem">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800" data-aos="fade-up">Why Choose Us</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-12" style="font-size: 1.2rem" data-aos="fade-up" data-aos-delay="200">
                 We believe our success is a result of our outstanding team. At SN Constructions, our management team has over 6 years of combined experience in the construction industry, while our field teams are led by supervisors who have between 25 and 45 years of field experience, with skills in many construction trades.
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <!-- Feature 1 -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-black p-6 rounded-full mb-6 flex items-center justify-center">
-                        <img src="4.jpg" alt="Professionalism Icon" class="w-12 h-12"> <!-- Update with the actual path -->
+                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-black p-6 rounded-full mb-6 flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer" onclick="openModal('professionalism-modal')">
+                        <img src="4.jpg" alt="Professionalism Icon" class="w-12 h-12">
                     </div>
                     <h3 class="text-xl font-bold mb-2">Professionalism</h3>
                     <p class="text-center text-gray-700 max-w-xs">We strive to provide the best quality and professionalism on every project we make! We hold our work and service to the highest standards every time, in order to not only meet but exceed our customers' expectations.</p>
                 </div>
                 
                 <!-- Feature 2 -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-black p-6 rounded-full mb-6 flex items-center justify-center">
-                        <img src="5.jpg" alt="On Time Icon" class="w-12 h-12"> <!-- Update with the actual path -->
+                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="600">
+                    <div class="bg-black p-6 rounded-full mb-6 flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer" onclick="openModal('timeline-modal')">
+                        <img src="5.jpg" alt="On Time Icon" class="w-12 h-12">
                     </div>
                     <h3 class="text-xl font-bold mb-2">Projects Done on Time</h3>
                     <p class="text-center text-gray-700 max-w-xs">Our goal is to always deliver projects on time. In most cases, we deliver the completed projects with 100% satisfaction before schedule.</p>
                 </div>
                 
                 <!-- Feature 3 -->
-                <div class="flex flex-col items-center">
-                    <div class="bg-black p-6 rounded-full mb-6 flex items-center justify-center">
-                        <img src="6.jpg" alt="Customer Delight Icon" class="w-12 h-12"> <!-- Update with the actual path -->
+                <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="800">
+                    <div class="bg-black p-6 rounded-full mb-6 flex items-center justify-center hover:bg-gray-800 transition-colors cursor-pointer" onclick="openModal('customer-delight-modal')">
+                        <img src="6.jpg" alt="Customer Delight Icon" class="w-12 h-12">
                     </div>
                     <h3 class="text-xl font-bold mb-2">Customer Delight</h3>
-                    <p class="text-center text-gray-700 max-w-xs">We don’t aim to satisfy our customers; we aim to delight our customers with our exceptional work and service.</p>
+                    <p class="text-center text-gray-700 max-w-xs">We don't aim to satisfy our customers; we aim to delight our customers with our exceptional work and service.</p>
                 </div>
             </div>
         </div>
@@ -300,20 +505,20 @@
         <div class="bg-red-500 text-white py-10 mt-12">
             <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 <!-- Projects Completed -->
-                <div>
-                    <h3 class="text-4xl font-bold">40+</h3>
+                <div class="counter" data-target="40">
+                    <h3 class="text-4xl font-bold">0</h3>
                     <p class="text-lg mt-2">Projects Completed</p>
                 </div>
 
                 <!-- Clients -->
-                <div>
-                    <h3 class="text-4xl font-bold">10+</h3>
+                <div class="counter" data-target="10">
+                    <h3 class="text-4xl font-bold">0</h3>
                     <p class="text-lg mt-2">Clients</p>
                 </div>
 
                 <!-- Years of Experience -->
-                <div>
-                    <h3 class="text-4xl font-bold">6+</h3>
+                <div class="counter" data-target="6">
+                    <h3 class="text-4xl font-bold">0</h3>
                     <p class="text-lg mt-2">Years of Experience</p>
                 </div>
             </div>
@@ -331,34 +536,116 @@
                 <div class="md:w-1/3 mb-8 md:mb-0">
                     <h4 class="text-xl font-bold mb-4">Quick Links</h4>
                     <ul>
-                        <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white">About Us</a></li>
-                        <li><a href="#portfolio" class="text-gray-400 hover:text-white">Portfolio</a></li>
-                        <li><a href="#services" class="text-gray-400 hover:text-white">Services</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
-                        <!-- Add more links -->
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors nav-link">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors nav-link">About Us</a></li>
+                        <li><a href="#portfolio" class="text-gray-400 hover:text-white transition-colors nav-link">Portfolio</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-colors nav-link">Services</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors nav-link">Contact</a></li>
                     </ul>
                 </div>
                 <div class="md:w-1/3">
                     <h4 class="text-xl font-bold mb-4">Get in Touch</h4>
                     <p class="text-gray-400">G.Sai Krishna Reddy</p>
-                    <p class="text-gray-400">snconstruction60@gmail.com</p>
-                    <p class="text-gray-400">Phone: +91 9398589479</p>
+                    <p class="text-gray-400">
+                        <a href="mailto:gbheemreddy3@gmail.com" class="hover:text-white transition-colors">gbheemreddy3@gmail.com</a>
+                    </p>
+                    <p class="text-gray-400">
+                        <a href="tel:+919398589479" class="hover:text-white transition-colors">Phone: +91 9398589479</a>
+                    </p>
+                    <p class="text-gray-400">
+                        <a href="https://wa.me/919398589479" target="_blank" class="hover:text-white transition-colors">
+                            <i class="fab fa-whatsapp mr-2"></i>WhatsApp: +91 9398589479
+                        </a>
+                    </p>
                     <p class="text-gray-400">Address: Sarath Defense Colony, NH 65, Muthangi, Patancheru, Sangareddy Dist. - 502 300, TS</p>
                 </div>
             </div>
             <p class="text-center text-gray-500 mt-8">&copy; 2024 SN CONSTRUCTIONS All Rights Reserved.</p>
         </div>
     </footer>
-    <!-- JavaScript for toggling the mobile menu -->
-    <script>
-        const navToggle = document.getElementById('nav-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('hidden');
-        });
-    </script>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('contact-modal')">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Get Free Quote</h2>
+            <form id="contact-form" class="space-y-4">
+                <div>
+                    <label class="block text-gray-700 mb-2">Name</label>
+                    <input type="text" name="name" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2">Email</label>
+                    <input type="email" name="email" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2">Phone</label>
+                    <input type="tel" name="phone" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2">Service Required</label>
+                    <select name="service" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500">
+                        <option value="">Select a service</option>
+                        <option value="densification">Densification</option>
+                        <option value="brick-work">Brick Work</option>
+                        <option value="concrete-flooring">Concrete Flooring</option>
+                        <option value="flooring-tiles">Flooring Tiles</option>
+                        <option value="epoxy-flooring">Epoxy Flooring</option>
+                        <option value="granite-flooring">Granite Flooring</option>
+                        <option value="painting-work">Painting Works</option>
+                        <option value="false-ceiling">False Ceiling</option>
+                        <option value="grid-ceiling">Grid Ceiling</option>
+                        <option value="gypsum-partitions">Gypsum Partitions</option>
+                        <option value="wood-partitions">Wood Partitions</option>
+                        <option value="vinyl-flooring">Vinyl Flooring</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2">Project Details</label>
+                    <textarea name="details" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-red-500" placeholder="Describe your project requirements..."></textarea>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="submit" class="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-envelope mr-2"></i>Send Email
+                    </button>
+                    <button type="button" onclick="sendWhatsApp()" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition-colors">
+                        <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Service Detail Modals -->
+    <div id="service-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('service-modal')">&times;</span>
+            <div id="service-content">
+                <!-- Service content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Detail Modals -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('project-modal')">&times;</span>
+            <div id="project-content">
+                <!-- Project content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <a href="https://wa.me/919398589479" target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>

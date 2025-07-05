@@ -1,0 +1,40 @@
+{
+  "name": "sn-constructions-interactive",
+  "version": "1.0.0",
+  "description": "Interactive website for SN Constructions featuring modern design and enhanced user experience",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "construction",
+    "interactive",
+    "website",
+    "responsive",
+    "modern",
+    "tailwind",
+    "javascript"
+  ],
+  "author": "SN Constructions",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/SN-Constructions.git"
+  },
+  "dependencies": {
+    "tailwindcss": "^2.2.19",
+    "aos": "^2.3.4",
+    "font-awesome": "^6.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+} 
