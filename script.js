@@ -383,7 +383,7 @@ This message was sent from the SN Constructions website contact form.
     `.trim();
     
     // Open email client with pre-filled content
-    const mailtoLink = `mailto:gbheemreddy3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoLink = `mailto:snconstruction60@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.open(mailtoLink);
     
     // Show success message

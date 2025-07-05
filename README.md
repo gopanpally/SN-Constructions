@@ -153,7 +153,7 @@ The website is fully responsive and includes:
 ## 📞 Contact Information
 
 - **Phone**: +91 9398589479
-- **Email**: gbheemreddy3@gmail.com
+- **Email**: snconstruction60@gmail.com
 - **Address**: Sarath Defense Colony, NH 65, Muthangi, Patancheru, Sangareddy Dist. - 502 300, TS
 
 ## 🎯 Interactive Elements Guide
@@ -226,7 +226,7 @@ The website is prepared for analytics integration:
 ## 📞 Support
 
 For technical support or questions:
-- **Email**: gbheemreddy3@gmail.com
+- **Email**: snconstruction60@gmail.com
 - **Phone**: +91 9398589479
 - **WhatsApp**: +91 9398589479
 
