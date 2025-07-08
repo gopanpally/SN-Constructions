@@ -19,15 +19,13 @@ window.addEventListener('load', function() {
     });
 });
 
-// Navbar scroll effect
-window.addEventListener('scroll', function() {
+// Navbar scroll effect with .scrolled class
+window.addEventListener('scroll', function () {
     const navbar = document.getElementById('navbar');
     if (window.scrollY > 100) {
-        navbar.classList.add('bg-white', 'shadow-lg');
-        navbar.classList.remove('bg-transparent');
+        navbar.classList.add('scrolled');
     } else {
-        navbar.classList.remove('bg-white', 'shadow-lg');
-        navbar.classList.add('bg-transparent');
+        navbar.classList.remove('scrolled');
     }
 });
 
@@ -534,6 +532,78 @@ images.forEach(img => {
     img.style.transform = 'scale(0.95)';
     img.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     imageObserver.observe(img);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const heroImages = [
+    "images/e819052e-6de7-4473-8aa5-af2fe99f1214.jpeg",
+    "images/0de7d974-d338-4307-9f8e-83ff049a2ada.jpeg",
+    "images/806d72c1-e501-4e1b-8bc7-032afafcfa1f.jpeg",
+    "images/Densi1.jpeg",
+    "images/Densi2.jpeg",
+    "images/densi3.jpeg",
+    "images/Densi4.jpeg",
+    "images/densi5.jpeg",
+    "images/densi6.jpeg",
+    "images/construction1.jpeg",
+    "images/painting1.jpeg",
+    "images/painting2.jpeg",
+    "images/painting3.jpeg",
+    "images/painting4.jpeg",
+    "images/painting5.jpeg",
+    "images/pipeline1.jpeg",
+    "images/roadwork1.jpeg",
+    "images/False_ceiling.jpeg",
+    "images/brickwork2.jpeg",
+    "images/falseceiling2.jpeg",
+    "images/brickwork4.jpeg",
+    "images/falseceling5.jpeg",
+    "images/falseceling6.jpeg"
+  ];
+  let current = 0;
+  const heroBg = document.getElementById('hero-carousel-bg');
+  const dotsContainer = document.getElementById('hero-carousel-dots');
+  if (!heroBg || !dotsContainer) return;
+
+  function updateDots() {
+    dotsContainer.querySelectorAll('button').forEach((dot, idx) => {
+      dot.classList.toggle('bg-red-500', idx === current);
+      dot.classList.toggle('bg-opacity-100', idx === current);
+      dot.classList.toggle('bg-opacity-50', idx !== current);
+    });
+  }
+
+  function showSlide(idx) {
+    heroBg.style.opacity = 0;
+    setTimeout(() => {
+      heroBg.style.backgroundImage = `url('${heroImages[idx]}')`;
+      heroBg.style.opacity = 1;
+    }, 400);
+    updateDots();
+  }
+
+  function goToSlide(idx) {
+    current = idx;
+    showSlide(current);
+  }
+
+  // Create dots
+  dotsContainer.innerHTML = '';
+  heroImages.forEach((_, idx) => {
+    const dot = document.createElement('button');
+    dot.className = 'w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80 focus:outline-none transition-all duration-300';
+    dot.addEventListener('click', () => goToSlide(idx));
+    dotsContainer.appendChild(dot);
+  });
+
+  // Initial state
+  showSlide(current);
+
+  // Auto slide
+  setInterval(() => {
+    current = (current + 1) % heroImages.length;
+    showSlide(current);
+  }, 3000);
 });
 
 console.log('SN Constructions Interactive Website Loaded Successfully!'); 
